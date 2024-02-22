@@ -95,16 +95,39 @@ def check_pair(drawn_cards):
     return 2 in symbol_counts.values()
 
 
+def check_combination(drawn_cards):
+    if check_royal_flush(drawn_cards):
+        return "royal_flush"
+    elif check_straight_flush(drawn_cards):
+        return "straight_flush"
+    elif check_4_of_kind(drawn_cards):
+        return "4_of_kind"
+    elif check_full_house(drawn_cards):
+        return "full_house"
+    elif check_flush(drawn_cards):
+        return "flush"
+    elif check_straight(drawn_cards):
+        return "straight"
+    elif check_3_of_kind(drawn_cards):
+        return "3_of_kind"
+    elif check_2_pairs(drawn_cards):
+        return "2_pairs"
+    elif check_pair(drawn_cards):
+        return "pair"
+    else:
+        return "highcard"
+
+
 def count_wins(iterations, deck):
     combinations = {
         "royal_flush": 0,
         "straight_flush": 0,
-        "4symbols": 0,
-        "fullhouse": 0,
+        "4_of_kind": 0,
+        "full_house": 0,
         "flush": 0,
         "straight": 0,
-        "3symbols": 0,
-        "2pairs": 0,
+        "3_of_kind": 0,
+        "2_pairs": 0,
         "pair": 0,
         "highcard": 0,
     }
@@ -113,26 +136,8 @@ def count_wins(iterations, deck):
         drawn_cards.sort()
 
         # count hands
-        if check_royal_flush(drawn_cards):
-            combinations["royal_flush"] += 1
-        elif check_straight_flush(drawn_cards):
-            combinations["straight_flush"] += 1
-        elif check_4_of_kind(drawn_cards):
-            combinations["4symbols"] += 1
-        elif check_full_house(drawn_cards):
-            combinations["fullhouse"] += 1
-        elif check_flush(drawn_cards):
-            combinations["flush"] += 1
-        elif check_straight(drawn_cards):
-            combinations["straight"] += 1
-        elif check_3_of_kind(drawn_cards):
-            combinations["3symbols"] += 1
-        elif check_2_pairs(drawn_cards):
-            combinations["2pairs"] += 1
-        elif check_pair(drawn_cards):
-            combinations["pair"] += 1
-        else:
-            combinations["highcard"] += 1
+        combination = check_combination(drawn_cards)
+        combinations[combination] += 1
 
     return combinations
 
